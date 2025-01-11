@@ -1,0 +1,178 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Seagull.gd" type="Script" id=1]
+[ext_resource path="res://Prefabs/Poop.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sprites/SeagullSheet.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/MiscSheet.png" type="Texture" id=4]
+[ext_resource path="res://Unused/DeathSplosion.tres" type="Material" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 12 )
+
+[sub_resource type="Animation" id=2]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 3, 2 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 0 ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "New Anim"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:velo_y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1.86607, 1 ),
+"update": 0,
+"values": [ 0.0, 225.0 ]
+}
+
+[sub_resource type="CanvasItemMaterial" id=11]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[node name="Seagull" type="KinematicBody2D"]
+z_index = 1
+collision_layer = 128
+collision_mask = 17
+collision/safe_margin = 0.2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+Poop = ExtResource( 2 )
+health_start = 3
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+hframes = 2
+vframes = 3
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, 4 )
+shape = SubResource( 1 )
+
+[node name="Position" type="Position2D" parent="."]
+visible = false
+position = Vector2( 0, 14 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite")
+anims/Idle = SubResource( 2 )
+"anims/Idle Flight" = SubResource( 3 )
+anims/Jump = SubResource( 4 )
+anims/Move = SubResource( 5 )
+anims/Poop = SubResource( 6 )
+
+[node name="PickupDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 42
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupDetection"]
+visible = false
+position = Vector2( 0, 4 )
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+"anims/New Anim" = SubResource( 7 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+material = SubResource( 11 )
+emitting = false
+amount = 30
+lifetime = 0.5
+one_shot = true
+speed_scale = 1.1
+explosiveness = 0.2
+process_material = ExtResource( 5 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="HurtCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="FlightCooldown" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="area_entered" from="PickupDetection" to="." method="_on_PickupDetection_area_entered"]
+[connection signal="timeout" from="FlightCooldown" to="." method="_on_FlightCooldown_timeout"]

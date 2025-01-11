@@ -1,0 +1,138 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Fonts/RetroSmall.tres" type="DynamicFont" id=1]
+[ext_resource path="res://HighscoreList.gd" type="Script" id=2]
+
+[node name="HighscoreList" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 400.0
+margin_bottom = 225.0
+custom_constants/margin_right = 25
+custom_constants/margin_top = 15
+custom_constants/margin_left = 25
+custom_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 25.0
+margin_top = 15.0
+margin_right = 375.0
+margin_bottom = 205.0
+rect_min_size = Vector2( 240, 180 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": true,
+"_editor_description_": ""
+}
+
+[node name="Highscore" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_right = 350.0
+margin_bottom = 43.0
+rect_min_size = Vector2( 133, 18 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "HIGHSCORES"
+align = 1
+valign = 1
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 47.0
+margin_right = 350.0
+margin_bottom = 190.0
+custom_constants/margin_right = 50
+custom_constants/margin_left = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2"]
+margin_left = 50.0
+margin_right = 300.0
+margin_bottom = 143.0
+rect_min_size = Vector2( 240, 143 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="NewBest" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+margin_right = 91.0
+margin_bottom = 143.0
+rect_min_size = Vector2( 64, 143 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = 7
+custom_fonts/font = ExtResource( 1 )
+align = 2
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Scores" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+margin_left = 95.0
+margin_right = 155.0
+margin_bottom = 143.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 60, 143 )
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = 7
+custom_fonts/font = ExtResource( 1 )
+text = "000000
+000000
+000000
+000000
+000000
+000000
+000000
+000000
+000000
+000000"
+align = 1
+
+[node name="Current" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+margin_left = 159.0
+margin_right = 250.0
+margin_bottom = 143.0
+rect_min_size = Vector2( 64, 143 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = 7
+custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 294.0
+margin_top = 168.0
+margin_right = 374.0
+margin_bottom = 191.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = 7
+custom_fonts/font = ExtResource( 1 )
+text = "PAUSE
+TO RETURN"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true,
+"_editor_description_": ""
+}
+
+[node name="InitialBlinkingTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="BlinkingTimer" type="Timer" parent="."]
+wait_time = 0.75
+
+[connection signal="timeout" from="InitialBlinkingTimer" to="." method="_on_InitialBlinkingTimer_timeout"]
+[connection signal="timeout" from="BlinkingTimer" to="." method="_on_BlinkingTimer_timeout"]

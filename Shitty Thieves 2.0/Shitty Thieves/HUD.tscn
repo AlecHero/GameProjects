@@ -1,0 +1,145 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://HUD.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Hearts.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/MiscSheet.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/CoolSheet.png" type="Texture" id=5]
+[ext_resource path="res://Fonts/RetroSmall.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Sprites/IconSheet.png" type="Texture" id=7]
+
+[sub_resource type="Animation" id=1]
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("RaccoonIcon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 160 ), Vector2( 0, 161 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("SeagullIcon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 336, 160 ), Vector2( 336, 161 ) ]
+}
+
+[node name="HUD" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="RaccoonIcon" type="Sprite" parent="."]
+position = Vector2( 0, 160 )
+texture = ExtResource( 7 )
+centered = false
+hframes = 2
+vframes = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RaccoonLife" type="Sprite" parent="."]
+position = Vector2( 92, 206 )
+texture = ExtResource( 2 )
+vframes = 4
+frame = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RaccoonSpecial" type="Sprite" parent="."]
+position = Vector2( 121, 201 )
+texture = ExtResource( 3 )
+centered = false
+hframes = 4
+frame = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SeagullIcon" type="Sprite" parent="."]
+position = Vector2( 336, 161 )
+texture = ExtResource( 7 )
+centered = false
+hframes = 2
+vframes = 2
+frame = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SeagullLife" type="Sprite" parent="."]
+position = Vector2( 308, 206 )
+texture = ExtResource( 2 )
+flip_h = true
+vframes = 4
+frame = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SeagullSpecial" type="Sprite" parent="."]
+position = Vector2( 269, 201 )
+texture = ExtResource( 3 )
+centered = false
+hframes = 4
+frame = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Back" type="Sprite" parent="."]
+position = Vector2( -0.0897369, 0 )
+z_index = -1
+texture = ExtResource( 5 )
+centered = false
+hframes = 3
+vframes = 2
+frame = 4
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Score" type="Label" parent="."]
+margin_left = 152.595
+margin_top = 190.962
+margin_right = 248.595
+margin_bottom = 206.962
+custom_fonts/font = ExtResource( 6 )
+text = "000000"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Text" type="Label" parent="."]
+margin_left = 160.601
+margin_top = 205.128
+margin_right = 240.601
+margin_bottom = 221.128
+custom_fonts/font = ExtResource( 6 )
+text = "SCORE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationCoon" type="AnimationPlayer" parent="."]
+anims/Raccoon = SubResource( 1 )
+
+[node name="AnimationGull" type="AnimationPlayer" parent="."]
+anims/Seagull = SubResource( 2 )

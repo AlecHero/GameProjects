@@ -1,0 +1,151 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Prefabs/Characters/AbstractHuman.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Prefabs/Characters/HumanNet.gd" type="Script" id=2]
+[ext_resource path="res://Prefabs/Net.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Sprites/HumanLegsEvil.png" type="Texture" id=4]
+[ext_resource path="res://Sound/NetSwing.wav" type="AudioStream" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Slash"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.7, 1, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11, 12, 9 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Legs:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 0, 2 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ false ],
+"method": "set_physics_process"
+}, {
+"args": [ true ],
+"method": "set_physics_process"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("NetAttack/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:is_attacking")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/5/type = "audio"
+tracks/5/path = NodePath("NetSwing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 6 )
+} ],
+"times": PoolRealArray( 0.7 )
+}
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 7, 24 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 16, 30 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 11, 30 )
+
+[node name="HumanNet" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+Drop = ExtResource( 3 )
+body_type = 8
+hurt_by = "Shitted"
+
+[node name="Body" parent="." index="1"]
+frame = 9
+
+[node name="Legs" parent="." index="2"]
+texture = ExtResource( 4 )
+frame = 1
+
+[node name="AnimationPlayer" parent="." index="5"]
+anims/Slash = SubResource( 1 )
+
+[node name="NetAttack" type="Area2D" parent="." index="6"]
+visible = false
+collision_layer = 4096
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NetAttack" index="0"]
+position = Vector2( 15, 7 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="Detection" type="Area2D" parent="." index="7"]
+visible = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Detection" index="0"]
+position = Vector2( 26, 3 )
+shape = SubResource( 3 )
+
+[node name="Detection2" type="Area2D" parent="." index="8"]
+visible = false
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Detection2" index="0"]
+position = Vector2( 53, 3 )
+shape = SubResource( 4 )
+
+[node name="AttackCooldown" type="Timer" parent="." index="10"]
+wait_time = 0.75
+autostart = true
+
+[node name="NetSwing" type="AudioStreamPlayer" parent="." index="11"]
+stream = ExtResource( 6 )
+volume_db = -3.747
+pitch_scale = 0.86
+
+[connection signal="body_entered" from="Detection" to="." method="_on_Detection_body_entered"]
+[connection signal="body_entered" from="Detection2" to="." method="_on_Detection2_body_entered"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_AttackCooldown_timeout"]

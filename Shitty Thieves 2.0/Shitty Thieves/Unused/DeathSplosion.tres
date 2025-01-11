@@ -1,0 +1,14 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=3 format=3 uid="uid://bebst2h5g6yo4"]
+
+[sub_resource type="Gradient" id="14"]
+colors = PackedColorArray(1, 0, 0, 1, 0.338379, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="12"]
+gradient = SubResource("14")
+width = 3
+
+[resource]
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 10, 0)
+color_ramp = SubResource("12")

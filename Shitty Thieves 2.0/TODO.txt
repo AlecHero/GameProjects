@@ -1,0 +1,4 @@
+
+ - Add more stages 
+ - Add retro intro
+ - Make certain shaders to work according to screen pixel size (so they don't change when zoomed in)

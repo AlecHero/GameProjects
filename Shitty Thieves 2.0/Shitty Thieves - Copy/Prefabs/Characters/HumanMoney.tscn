@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Prefabs/Characters/AbstractHuman.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Prefabs/Characters/HumanMoney.gd" type="Script" id=2]
+[ext_resource path="res://Prefabs/DropMoney.tscn" type="PackedScene" id=3]
+
+[node name="HumanMoney" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+Drop = ExtResource( 3 )
+body_type = 2
+hurt_by = "Shitted"
+hurting = false
+
+[node name="Face" parent="." index="0"]
+frame = 0
+
+[node name="Body" parent="." index="1"]
+frame = 2
+
+[node name="Legs" parent="." index="2"]
+frame = 1

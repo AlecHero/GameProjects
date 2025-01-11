@@ -1,0 +1,125 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Fonts/Retro Pixel.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Sound/Selector.wav" type="AudioStream" id=2]
+[ext_resource path="res://PauseScreen.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[node name="PauseScreen" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Node2D"]
+margin_right = 400.0
+margin_bottom = 225.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 130.0
+margin_top = 80.0
+margin_right = -130.0
+margin_bottom = -150.0
+mouse_filter = 1
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 188.0
+margin_bottom = 98.0
+rect_min_size = Vector2( 140, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 8
+custom_constants/separation = 16
+alignment = 1
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Resume" type="Button" parent="MarginContainer/Buttons"]
+margin_right = 188.0
+margin_bottom = 22.0
+focus_neighbour_top = NodePath("../Back")
+focus_neighbour_bottom = NodePath("../Options")
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/focus = SubResource( 8 )
+text = " RESUME"
+flat = true
+align = 0
+
+[node name="Options" type="Button" parent="MarginContainer/Buttons"]
+margin_top = 38.0
+margin_right = 188.0
+margin_bottom = 60.0
+focus_neighbour_top = NodePath("../Resume")
+focus_neighbour_bottom = NodePath("../Back")
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/focus = SubResource( 7 )
+text = " BORDERLESS"
+flat = true
+align = 0
+
+[node name="Back" type="Button" parent="MarginContainer/Buttons"]
+margin_top = 76.0
+margin_right = 188.0
+margin_bottom = 98.0
+focus_neighbour_top = NodePath("../Options")
+focus_neighbour_bottom = NodePath("../Resume")
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/focus = SubResource( 5 )
+text = " BACK"
+flat = true
+align = 0
+
+[node name="Select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -23.0
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Focus" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -35.0
+pitch_scale = 3.5
+__meta__ = {
+"_editor_description_": ""
+}
+
+[connection signal="focus_entered" from="MarginContainer/Buttons/Resume" to="." method="_on_Resume_focus_entered"]
+[connection signal="pressed" from="MarginContainer/Buttons/Resume" to="." method="_on_Resume_pressed"]
+[connection signal="focus_entered" from="MarginContainer/Buttons/Options" to="." method="_on_Options_focus_entered"]
+[connection signal="pressed" from="MarginContainer/Buttons/Options" to="." method="_on_Options_pressed"]
+[connection signal="focus_entered" from="MarginContainer/Buttons/Back" to="." method="_on_Back_focus_entered"]
+[connection signal="pressed" from="MarginContainer/Buttons/Back" to="." method="_on_Back_pressed"]

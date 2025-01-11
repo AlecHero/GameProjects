@@ -1,0 +1,145 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Shaders/CRT.shader" type="Shader" id=1]
+[ext_resource path="res://Sprites/White.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Thin-CRT-Border.png" type="Texture" id=3]
+[ext_resource path="res://Shaders/Noise Overlay.shader" type="Shader" id=4]
+[ext_resource path="res://Shaders/Chromatic Abberation.shader" type="Shader" id=5]
+[ext_resource path="res://Shaders/Blur.shader" type="Shader" id=6]
+[ext_resource path="res://Unused/Mash.png" type="Texture" id=7]
+[ext_resource path="res://Shaders/Bloom.shader" type="Shader" id=9]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/scan_line_count = 225.0
+shader_param/scan_line_contrast = 0.5
+shader_param/scan_line_thickness = 0.1
+shader_param/horizontal_curve = 4.0
+shader_param/vertical_curve = 3.0
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 6 )
+shader_param/blur = 6.0
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = ExtResource( 9 )
+shader_param/hdr_threshold = 0.234
+shader_param/exposure = 0.6
+shader_param/blur_size = 5.49
+shader_param/glow_intensity = -0.029
+shader_param/overlay_number = 0.226
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 4 )
+shader_param/overlay_number = 0.5
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 5 )
+shader_param/amount = 1.0
+
+[node name="Shader" type="CanvasLayer"]
+layer = 5
+
+[node name="CRT Layer" type="BackBufferCopy" parent="."]
+z_index = 6
+copy_mode = 2
+rect = Rect2( 0, 0, 400, 225 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="TextureRect" type="TextureRect" parent="CRT Layer"]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Border" type="Sprite" parent="."]
+z_index = 5
+texture = ExtResource( 3 )
+centered = false
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Blur Layer" type="BackBufferCopy" parent="."]
+z_index = 4
+copy_mode = 2
+rect = Rect2( 0, 0, 400, 225 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="TextureRect" type="TextureRect" parent="Blur Layer"]
+material = SubResource( 3 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.52588e-05
+margin_top = -1.52588e-05
+margin_bottom = -1.52588e-05
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Bloom Layer" type="BackBufferCopy" parent="."]
+z_index = 3
+copy_mode = 2
+rect = Rect2( 0, 0, 400, 225 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="TextureRect" type="TextureRect" parent="Bloom Layer"]
+material = SubResource( 11 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Noise Overlay Layer" type="BackBufferCopy" parent="."]
+z_index = 2
+copy_mode = 2
+rect = Rect2( 0, 0, 400, 225 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="TextureRect" type="TextureRect" parent="Noise Overlay Layer"]
+material = SubResource( 4 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Chromatic Abberation Layer" type="BackBufferCopy" parent="."]
+z_index = 1
+copy_mode = 2
+rect = Rect2( 0, 0, 400, 225 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="TextureRect" type="TextureRect" parent="Chromatic Abberation Layer"]
+material = SubResource( 7 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_rotation = 0.00167743
+texture = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Test" type="Sprite" parent="."]
+visible = false
+z_index = -1
+texture = ExtResource( 7 )
+centered = false

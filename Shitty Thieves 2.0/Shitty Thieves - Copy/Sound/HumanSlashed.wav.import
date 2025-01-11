@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/HumanSlashed.wav-1e6005a08605a3fc4d5bbb88a9058923.sample"
+
+[deps]
+
+source_file="res://Sound/HumanSlashed.wav"
+dest_files=[ "res://.import/HumanSlashed.wav-1e6005a08605a3fc4d5bbb88a9058923.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

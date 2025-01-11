@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Shaders/Halftone_Dots2.gdshader" type="Shader" id=1]
+[ext_resource path="res://Shaders/HalftonePattern.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/White.png" type="Texture" id=3]
+[ext_resource path="res://Shaders/Blur.shader" type="Shader" id=4]
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 1 )
+shader_param/contrast = 1.0
+shader_param/zoom = 0.0
+shader_param/inline_ratio = 1.0
+shader_param/inline_feather = 0.0
+shader_param/offset = 0.0
+shader_param/fill = 0.82
+shader_param/feather = 0.095
+shader_param/frequency = 95.0
+shader_param/noise_ratio = 1.0
+shader_param/k_ratio = 0.0
+shader_param/rich_black = false
+shader_param/grayscale = false
+shader_param/paper_color = Color( 1, 0.95, 0.84, 1 )
+shader_param/C = Color( 0.4, 0.85, 0.85, 1 )
+shader_param/M = Color( 0.85, 0.25, 0.5, 1 )
+shader_param/Y = Color( 0.85, 0.85, 0.2, 1 )
+shader_param/K = Color( 0, 0, 0, 1 )
+shader_param/C_angle = 165.0
+shader_param/M_angle = 45.0
+shader_param/Y_angle = 90.0
+shader_param/K_angle = 105.0
+shader_param/halftone_pattern = ExtResource( 2 )
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 4 )
+shader_param/blur = 15.0
+
+[node name="CanvasLayer" type="CanvasLayer"]
+layer = 14
+
+[node name="Halftone" type="BackBufferCopy" parent="."]
+z_index = 2
+copy_mode = 2
+rect = Rect2( 0, 0, 400, 225 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="ColorRect" type="TextureRect" parent="Halftone"]
+material = SubResource( 6 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+
+[node name="Blur" type="TextureRect" parent="."]
+material = SubResource( 7 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.52588e-05
+margin_top = -1.52588e-05
+margin_bottom = -1.52588e-05
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true,
+"_editor_description_": ""
+}

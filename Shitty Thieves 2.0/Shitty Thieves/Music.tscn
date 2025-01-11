@@ -1,0 +1,144 @@
+[gd_scene load_steps=18 format=3 uid="uid://ct4tek4wljllm"]
+
+[ext_resource type="Script" path="res://Music.gd" id="1"]
+[ext_resource type="AudioStream" uid="uid://dwory12buwd8m" path="res://Sound/Pickup.wav" id="2"]
+[ext_resource type="AudioStream" uid="uid://bt8j0v7433117" path="res://Sound/RacoonHit.wav" id="3"]
+[ext_resource type="AudioStream" uid="uid://dqmwjlrfbbidj" path="res://Sound/HumanSlashed.wav" id="4"]
+[ext_resource type="AudioStream" uid="uid://ctyhfs80irkky" path="res://Sound/RacoonJump.wav" id="5"]
+[ext_resource type="AudioStream" uid="uid://dmfwsfwdu3ism" path="res://Sound/BirdHit.wav" id="6"]
+[ext_resource type="AudioStream" uid="uid://bfol3aatvw7mm" path="res://Sound/BirdAttack.wav" id="7"]
+[ext_resource type="AudioStream" uid="uid://capnarmworrrl" path="res://Sound/HumanShat.wav" id="8"]
+[ext_resource type="AudioStream" uid="uid://c3sf0lrfcjqis" path="res://Sound/BirdJump.wav" id="9"]
+[ext_resource type="AudioStream" uid="uid://bwodndk58dh41" path="res://Sound/shitty_thieves_1.1.2.mp3" id="10"]
+[ext_resource type="AudioStream" uid="uid://bxymifbb2h4im" path="res://Sound/GameOver.wav" id="11"]
+[ext_resource type="AudioStream" uid="uid://cceyqijvfgy6x" path="res://Sound/Selector.wav" id="12"]
+[ext_resource type="AudioStream" uid="uid://cu1jnyopulnj3" path="res://Sound/RacoonAttack.wav" id="13"]
+[ext_resource type="AudioStream" uid="uid://dv37jy8s4r3io" path="res://Sound/Shoot.wav" id="14"]
+
+[sub_resource type="Animation" id="2"]
+resource_name = "FadeIn"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.63728, 1),
+"update": 0,
+"values": [-80.0, -8.7]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="1"]
+resource_name = "FadeOut"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-8.7, -80.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o2vka"]
+_data = {
+"FadeIn": SubResource("2"),
+"FadeOut": SubResource("1")
+}
+
+[node name="Audio" type="AudioStreamPlayer"]
+stream = ExtResource("10")
+volume_db = -80.0
+script = ExtResource("1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o2vka")
+}
+
+[node name="RaccoonHurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3")
+volume_db = -17.165
+
+[node name="RaccoonJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5")
+volume_db = -34.33
+
+[node name="RaccoonAttack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13")
+volume_db = -11.916
+pitch_scale = 0.6
+
+[node name="SeagullHurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6")
+volume_db = -20.424
+
+[node name="SeagullJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9")
+volume_db = -6.558
+
+[node name="SeagullPoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7")
+volume_db = -17.968
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4")
+volume_db = -25.242
+pitch_scale = 2.11
+
+[node name="ShittedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8")
+volume_db = -23.016
+pitch_scale = 1.57
+
+[node name="GunSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14")
+volume_db = -18.0
+pitch_scale = 0.9
+
+[node name="GameOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11")
+
+[node name="Select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12")
+volume_db = -23.0
+
+[node name="Pickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2")
+volume_db = -15.147
+pitch_scale = 1.67
